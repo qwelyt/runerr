@@ -60,95 +60,10 @@ const letterToRune = {
     'Ö': '&#5794;',
     'ö': '&#5794;',
     'th': '&#5798;',
-    ' ': ' ',
+    ' ': '&#5869;',
 }
 
-const words = [
-    "hej",
-    "hon",
-    "han",
-    "den",
-    "det",
-    "finns",
-    "fisk",
-    "kissa",
-    "bajsa",
-    "mat",
-    "äta",
-    "sova",
-    "gRis",
-    "ko",
-    "vete",
-    "dRicka",
-    "vatten",
-    "gjorde",
-    "Ris",
-    "leka",
-    "toRka",
-    "vila",
-    "nappen",
-    "blöjoR",
-    "Råg",
-    "get",
-    "fåR",
-    "getteR",
-    "hus",
-    "björn",
-    "katt",
-    "hund",
-    "äpple",
-    "banan",
-    "päRon",
-    "staRk",
-    "svag",
-    "vinna",
-    "föRloRa",
-    "ge",
-    "få",
-    "många",
-    "skicka",
-    "kön",
-    "kyRka",
-    "vanhelga",
-    "latin",
-    "kung",
-    "dRottning",
-    "pengaR",
-    "dRev",
-    "svärd",
-    "sköld",
-    "högaffel",
-    "båt",
-    "skepp",
-    "gRäs",
-    "halm",
-    "hövding",
-    "knä",
-    "hand",
-    "fot",
-    "huvud",
-    "oRm",
-    "fenRis",
-    "vaRg",
-    "kRåka",
-    "måne",
-    "sol",
-    "Rustning",
-    "kniv",
-    "potatis",
-    "kött",
-    "öRn",
-    "lag",
-    "gRön",
-    "gul",
-    "bRun",
-    "blå",
-    "Röd",
-    "Rosa",
-    "lila",
-    "klocka",
-];
-const awords = ["pastor"]
+
 
 function randomInt(max){
     return Math.floor(Math.random()*max);
@@ -182,17 +97,22 @@ function generate(wordlist){
     document.getElementById("answer").innerHTML = "";
 }
 
+function updateScore(value){
+    sessionStorage.setItem("score", value);
+    document.getElementById("score").innerHTML = value;
+}
+
 function submit(){
     let answer = document.getElementById("inputfield").value;
     let word = sessionStorage.getItem("word");
     if (answer.toLowerCase() == word.toLowerCase()) {
         document.getElementById("rightWrong").innerHTML = "Rätt!";
-        sessionStorage.setItem("score", parseInt(sessionStorage.getItem("score"),10)+1);
+        let currentScore = parseInt(sessionStorage.getItem("score")) || 0;
+        updateScore(currentScore+1);
     } else {
         document.getElementById("rightWrong").innerHTML = "Fel!";
-        sessionStorage.setItem("score", 0);
+        updateScore(0);
     }
-    document.getElementById("score").innerHTML = sessionStorage.getItem("score");
 }
 
 function translate(){
@@ -216,7 +136,38 @@ function translate(){
     document.getElementById("translation").appendChild(table);
 
 }
-function doGenerate(){generate(words);}
+
+let words;
+let sentences;
+async function loadFile(file){
+    return fetch(file)
+        .then((res) => res.text())
+        .then((txt) => txt.split("\n").map(l=>l.trim()))
+}
+async function getWords(){
+    if (words == undefined){
+        words = await loadFile("words.txt")
+    }
+    return words;
+}
+async function getSentences(){
+    if (sentences == undefined){
+        sentences = await loadFile("sentences.txt")
+    }
+    return sentences;
+
+}
+
+async function doGenerate(){
+    let sw = document.getElementById("toggle");
+    let w;
+    if (sw.checked){
+        w = await getSentences();
+    } else {
+        w = await getWords();
+    }
+    generate(w);
+}
 
 document.getElementById("generate").addEventListener("click", doGenerate);
 document.getElementById("submit").addEventListener("click", submit);
