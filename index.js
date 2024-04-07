@@ -61,6 +61,7 @@ const letterToRune = {
     'ö': '&#5794;',
     'th': '&#5798;',
     ' ': '&#5869;',
+    '_': ' ',
 }
 
 
@@ -116,8 +117,8 @@ function submit(){
 }
 
 function translate(){
-    let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ".split('');
-    let only_r = "                 r           ".split('');
+    let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ ".split('');
+    let only_r = "_________________r___________ ".split('');
     let runes = [...letters].map(c => letterToRune[c]);
     let runes2= [...only_r].map(c => letterToRune[c]);
 
