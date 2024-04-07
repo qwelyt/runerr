@@ -89,7 +89,7 @@ function removeDoubleConsonants(word){
 function generate(wordlist){
     let word = wordlist[randomInt(wordlist.length)];
     sessionStorage.setItem("word", word);
-    word = word.replaceAll("c", "k").replaceAll("v","f").replaceAll("j","i");
+    word = word.replaceAll("ch", "k").replaceAll("c", "k").replaceAll("v","f").replaceAll("j","i");
     word = removeDoubleConsonants(word);
     let runes = [...word].map(c => letterToRune[c]);
     document.getElementById("output").innerHTML = runes.join("");
