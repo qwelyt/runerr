@@ -1,0 +1,41 @@
+body{
+    background-color:#996;
+}
+button {
+    background-color: #ccc;
+    border-radius: 5px;
+}
+input {
+    border-radius: 5px;
+    background-color: #eec;
+}
+#content{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 3fr 1fr 1fr 1fr 1fr 1fr 1fr 2fr;
+    row-gap: 1rem;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#selector{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#output {
+    border: 1px #444 solid;
+    padding: 0.5rem;
+    background-color: #eec;
+}
+#inputfield{
+    padding: 0.5rem;
+}
+
+#letters{
+    font-family: monospace;
+}
+#runes{
+    font-family: monospace;
+}
