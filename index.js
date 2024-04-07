@@ -157,9 +157,7 @@ function randomInt(max){
 const vowles = [..."aoeuiyåäö"]
 function removeDoubleConsonants(word){
     let chars=[...word];
-    console.log(vowles);
     for (let i=chars.length-1; i>=0; i --){
-        console.log(vowles.indexOf(chars[i]));
         if(i <= chars.length && chars[i] === chars[i-1]){
             if(vowles.indexOf(chars[i])>=0){
                 continue;
@@ -177,14 +175,7 @@ function generate(wordlist){
     sessionStorage.setItem("word", word);
     word = word.replaceAll("c", "k").replaceAll("v","f").replaceAll("j","i");
     word = removeDoubleConsonants(word);
-    console.log(word);
     let runes = [...word].map(c => letterToRune[c]);
-    // Remove duplicates in a row
-    // for (let i=runes.length-1; i > 0; i--) {
-    //     if(i <= runes.length && runes[i] === runes[i - 1]){
-    //         runes.splice(i,1);
-    //     }
-    // }
     document.getElementById("output").innerHTML = runes.join("");
     document.getElementById("inputfield").value = "";
     document.getElementById("rightWrong").innerHTML = "";
