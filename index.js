@@ -5,7 +5,7 @@ const letterToRune = {
     'a': '&#5829;',
     'B': '&#5842;',
     'b': '&#5842;',
-    'C': '&#5812;',
+    'C': '&#5835;',
     'c': '&#5812;',
     'D': '&#5841;',
     'd': '&#5841;',
@@ -110,6 +110,7 @@ function submit(){
         document.getElementById("rightWrong").innerHTML = "Rätt!";
         let currentScore = parseInt(sessionStorage.getItem("score")) || 0;
         updateScore(currentScore+1);
+        doGenerate();
     } else {
         document.getElementById("rightWrong").innerHTML = "Fel!";
         updateScore(0);
@@ -170,6 +171,7 @@ async function doGenerate(){
     generate(w);
 }
 
+document.getElementById("toggle").addEventListener("change", doGenerate);
 document.getElementById("generate").addEventListener("click", doGenerate);
 document.getElementById("submit").addEventListener("click", submit);
 document.getElementById("inputfield").addEventListener("keypress", function(event){
@@ -178,7 +180,6 @@ document.getElementById("inputfield").addEventListener("keypress", function(even
         document.getElementById("submit").click();
     }
 });
-
 document.getElementById("showAnswer").addEventListener("click", function(){
     document.getElementById("answer").innerHTML = sessionStorage.getItem("word")
 });
