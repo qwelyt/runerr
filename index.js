@@ -119,7 +119,7 @@ function submit(){
 
 function translate(){
     let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ ".split('');
-    let only_r = "_________________r___________ ".split('');
+    let only_r  = "__c______________r___________ ".split('');
     let runes = [...letters].map(c => letterToRune[c]);
     let runes2= [...only_r].map(c => letterToRune[c]);
 
